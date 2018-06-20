@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
 import Navbar from './Navbar';
+
+const CardState = {
+  HIDING: 0;
+  SHOWING: 1;
+  MATCHING: 2;
+}
 class App extends Component {
   render() {
     return (
