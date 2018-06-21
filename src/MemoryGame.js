@@ -59,6 +59,30 @@ export default class MemoryGame extends Component {
         return c;
       });
     }
+    
+    const foundCard = this.state.cards.find(c => c.id === id);
+    
+    if (this.state.noClick || foundCard.cardState !== CardState.HIDING) {
+      return;
+    }
+    
+    let noClick = false;
+    
+    let cards = mapCardState(this.state.cards, [id], CardState.SHOWING);
+    
+    const showingCards = cards.filter((c) => c.cardState === CardState.SHOWING);
+    
+    const ids = showingCards.map(c => c.id);
+    
+    if (showingCards.length === 2 &&
+        showingCards[0].backgroundColor === showingCards[1].backgroundColor) {
+          cards = mapCardState(cards, ids, CardState.MATCHING);
+        } else if (showingCards.length === 2) {
+          let hidingCards = mapCardState(cards, ids, CardState.HIDING);
+          
+          noClick = true;
+          this.setState({cards, noClick})
+        }
   }
   render() {
     const cards = this.state.cards.map((card) => (
