@@ -36,7 +36,7 @@ export default class MemoryGame extends Component {
   }
   render() {
     const cards = this.state.cards.map((card) => (
-      <Cards key={card.id} />
+      <Cards key={cards.id} showing={true} />
       ));
     return (
       <div>
