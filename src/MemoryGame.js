@@ -35,6 +35,16 @@ export default class MemoryGame extends Component {
     this.state = {cards, noClick: false};
     
     this.handleClick = this.handleClick.bind(this);
+    this.handleNewGame = this.handleNewGame.bind(this);
+  }
+  
+  handleNewGame() {
+    let cards = this.state.cards.map(c => ({
+      ...c,
+      cardState: CardState.HIDING,
+    }));
+    cards = shuffle(cards);
+    this.setState({cards});
   }
   
   handleClick(id) {
@@ -55,12 +65,12 @@ export default class MemoryGame extends Component {
       key={card.id} 
       showing={card.cardState !== CardState.HIDING}  // true = shows colours, false = grey
       backgroundColor = {card.backgroundColor}
-      onClick={() => {}}
+      onClick={() => this.handleClick(card.id)}
       />
       ));
     return (
       <div>
-      <Navbar />
+      <Navbar onNewGame = {this.handleNewGame} />
       {cards}
       </div>
     );
