@@ -83,9 +83,9 @@ export default class MemoryGame extends Component {
           noClick = true;
           this.setState({cards, noClick}, () => {
             setTimeout(() => {
-              // set the state of the cards to hiding after 1.5 seconds
+              // set the state of the cards to hiding after 1.1 seconds
               this.setState({cards: hidingCards, noClick: false});
-            }, 1500);
+            }, 1100);
           });
           return;
         }
