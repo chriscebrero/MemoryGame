@@ -48,16 +48,17 @@ export default class MemoryGame extends Component {
   }
   
   handleClick(id) {
-    this.setState(prevState => {
-      let cards = prevState.cards.map(c => (
-        c.id === id ? {
-          ...c,
-          cardState: c.cardState === CardState.HIDING ? CardState.MATCHING :
-                      CardState.HIDING
-        } : c
-        ));
-        return {cards};
-    })
+    const mapCardState = (cards, idsToChange, newCardState) => {
+      return cards.map(c => {
+        if (idsToChange.includes(c.id)) {
+          return {
+            ...c, 
+            cardState: newCardState
+          };
+        }
+        return c;
+      });
+    }
   }
   render() {
     const cards = this.state.cards.map((card) => (
