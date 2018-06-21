@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
 import Navbar from './Navbar';
+import shuffle from 'shuffle-array';
 
 const CardState = {
   HIDING: 0,
@@ -30,22 +31,19 @@ export default class MemoryGame extends Component {
       {id: 14, cardState: CardState.HIDING, backgroundColor: 'lightskyblue'},
       {id: 15, cardState: CardState.HIDING, backgroundColor: 'lightskyblue'}
     ];
+    cards = shuffle(cards);
+    this.state = {cards, noClick: false};
   }
-}
-class App extends Component {
   render() {
+    const cards = this.state.cards.map((card) => (
+      <Card key={card.id} />
+      ));
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+      <Navbar />
+      {cards}
       </div>
     );
   }
 }
 
-export default App;
