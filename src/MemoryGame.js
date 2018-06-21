@@ -33,10 +33,30 @@ export default class MemoryGame extends Component {
     ];
     cards = shuffle(cards);
     this.state = {cards, noClick: false};
+    
+    this.handleClick = this.handleClick.bind(this);
+  }
+  
+  handleClick(id) {
+    this.setState(prevState => {
+      let cards = prevState.cards.map(c => (
+        c.id === id ? {
+          ...c,
+          cardState: c.cardState === CardState.HIDING ? CardState.MATCHING :
+                      CardState.HIDING
+        } : c
+        ));
+        return {cards};
+    })
   }
   render() {
     const cards = this.state.cards.map((card) => (
-      <Cards key={cards.id} showing={true} />
+      <Cards 
+      key={card.id} 
+      showing={card.cardState !== CardState.HIDING}  // true = shows colours, false = grey
+      backgroundColor = {card.backgroundColor}
+      onClick={() => {}}
+      />
       ));
     return (
       <div>
