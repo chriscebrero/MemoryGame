@@ -81,7 +81,12 @@ export default class MemoryGame extends Component {
           let hidingCards = mapCardState(cards, ids, CardState.HIDING);
           
           noClick = true;
-          this.setState({cards, noClick})
+          this.setState({cards, noClick}, () => {
+            setTimeout(() => {
+              // set the state of the cards to hiding after 1.5 seconds
+              this.setState({cards: hidingCards, noClick: false});
+            }, 1500);
+          })
         }
   }
   render() {
